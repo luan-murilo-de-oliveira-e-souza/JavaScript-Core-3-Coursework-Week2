@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dog Images</title>
+
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+      }
+
+      div {
+        width: 30%;
+        margin: 0 auto;
+        padding: 30px;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0 7px 5px -2px gray;
+        transition: transform 0.2s;
+      }
+
+      button:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+
+      img {
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 50%;
+        box-shadow: 0 7px 5px -2px gray;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <button id="btnRandomImage">Display Random Image</button>
+      <ul id="listImage"></ul>
+    </div>
+
+    <script>
+      const listImage = document.querySelector("#listImage");
+      function loadRandomImage() {
+        document
+          .querySelector("#btnRandomImage")
+          .addEventListener("click", function () {
+            fetch("https://dog.ceo/api/breeds/image/random")
+              .then(function (response) {
+                return response.json();
+              })
+              .then((image) => {
+                const newLiToImg = document.createElement("li");
+                const img = document.createElement("img");
+
+                img.setAttribute("src", image.message);
+
+                newLiToImg.appendChild(img);
+                listImage.appendChild(newLiToImg);
+              })
+              .catch((error) => console.log(error));
+          });
+      }
+
+      loadRandomImage();
+    </script>
+  </body>
+</html>
